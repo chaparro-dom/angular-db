@@ -1,0 +1,242 @@
+/* Variables globales */
+:root {
+    --primary-color: #074420;
+    --primary-light: #4ade80;
+    --primary-dark: #053016;
+    --text-light: #ffffff;
+    --text-dark: #1f2937;
+    --bg-light: #f0f2f5;
+    --bg-dark: #000000;
+    --card-bg-light: #ffffff;
+    --card-bg-dark: #121212;
+    --border-light: rgba(0, 0, 0, 0.1);
+    --border-dark: rgba(255, 255, 255, 0.1);
+    --nav-bg-dark: #0a0a0a;
+    --sidebar-bg-dark: #0a0a0a;
+    --hover-bg-dark: #1a1a1a;
+}
+
+/* Estilos base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    transition: all 0.3s ease;
+}
+
+/* Modo Oscuro Global */
+body.dark-mode {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.dark-mode app-root,
+.dark-mode app-dashboard,
+.dark-mode app-productos,
+.dark-mode app-login {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+}
+
+.dark-mode .mat-app-background {
+    background-color: var(--bg-dark);
+}
+
+.dark-mode .card,
+.dark-mode .container,
+.dark-mode .content-wrapper {
+    background-color: var(--card-bg-dark);
+    color: var(--text-light);
+}
+
+.dark-mode input,
+.dark-mode select,
+.dark-mode textarea {
+    background-color: var(--hover-bg-dark);
+    color: var(--text-light);
+    border-color: var(--border-dark);
+}
+
+.dark-mode button {
+    background-color: var(--nav-bg-dark);
+    color: var(--text-light);
+    border-color: var(--border-dark);
+}
+
+.dark-mode button:hover {
+    background-color: var(--hover-bg-dark);
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Clases de utilidad */
+.bg-dark {
+    background-color: var(--bg-dark) !important;
+    color: var(--text-light) !important;
+}
+
+.text-light {
+    color: var(--text-light) !important;
+}
+
+/* Estilos para diálogos y modales en modo oscuro */
+.dark-mode .modal,
+.dark-mode .dialog {
+    background-color: var(--card-bg-dark);
+    color: var(--text-light);
+}
+
+.dark-mode .modal-header,
+.dark-mode .modal-footer {
+    border-color: var(--border-dark);
+}
+
+/* Estilos para tablas en modo oscuro */
+.dark-mode table {
+    background-color: var(--card-bg-dark);
+    color: var(--text-light);
+}
+
+.dark-mode th,
+.dark-mode td {
+    border-color: var(--border-dark);
+}
+
+.dark-mode thead th {
+    background-color: var(--nav-bg-dark);
+}
+
+.dark-mode tbody tr:hover {
+    background-color: var(--hover-bg-dark);
+}
+
+/* Estilos para formularios en modo oscuro */
+.dark-mode .form-control {
+    background-color: var(--hover-bg-dark);
+    color: var(--text-light);
+    border-color: var(--border-dark);
+}
+
+.dark-mode .form-control:focus {
+    border-color: var(--primary-light);
+    box-shadow: 0 0 0 0.2rem rgba(74, 222, 128, 0.25);
+}
+
+.dark-mode .form-label {
+    color: var(--text-light);
+}
+
+/* Estilos para alertas y mensajes en modo oscuro */
+.dark-mode .alert {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-dark);
+    color: var(--text-light);
+}
+
+/* Estilos para tarjetas en modo oscuro */
+.dark-mode .card {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-dark);
+}
+
+.dark-mode .card-header,
+.dark-mode .card-footer {
+    background-color: var(--nav-bg-dark);
+    border-color: var(--border-dark);
+}
+
+/* Estilos para listas en modo oscuro */
+.dark-mode .list-group-item {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-dark);
+    color: var(--text-light);
+}
+
+.dark-mode .list-group-item:hover {
+    background-color: var(--hover-bg-dark);
+}
+
+/* Estilos para navegación en modo oscuro */
+.dark-mode .nav-link {
+    color: var(--text-light);
+}
+
+.dark-mode .nav-link:hover {
+    background-color: var(--hover-bg-dark);
+}
+
+.dark-mode .navbar {
+    background-color: var(--nav-bg-dark);
+    border-color: var(--border-dark);
+}
+
+/* Estilos para tooltips y popovers en modo oscuro */
+.dark-mode .tooltip,
+.dark-mode .popover {
+    background-color: var(--card-bg-dark);
+    border-color: var(--border-dark);
+}
+
+.dark-mode .tooltip-arrow::before,
+.dark-mode .popover-arrow::before {
+    border-color: var(--border-dark);
+}
+
+/* Estilos para spinners y loaders en modo oscuro */
+.dark-mode .spinner-border,
+.dark-mode .spinner-grow {
+    color: var(--text-light);
+}
+
+/* Estilos para badges en modo oscuro */
+.dark-mode .badge {
+    background-color: var(--nav-bg-dark);
+    color: var(--text-light);
+}
+
+/* Estilos personalizados para los toasts */
+.toast-container .ngx-toastr {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-radius: 8px;
+    padding: 15px 20px;
+}
+
+.toast-success {
+    background: #4CAF50;
+}
+
+.toast-error {
+    background: #f44336;
+}
+
+.toast-info {
+    background: #2196F3;
+}
+
+.toast-warning {
+    background: #ff9800;
+}

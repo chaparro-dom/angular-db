@@ -1,0 +1,124 @@
+<!-- Content -->
+<div class="content">
+  <div class="header-section">
+    <h2>Gestión de Usuarios</h2>
+    <div class="header-actions">
+      <div class="search-box">
+        <input 
+          type="text" 
+          [(ngModel)]="searchQuery" 
+          (input)="searchUsers()"
+          placeholder="Buscar usuarios por nombre..."
+          class="search-input"
+          [class.searching]="isSearching"
+        >
+        <i class="fas fa-search search-icon" *ngIf="!isSearching"></i>
+        <i class="fas fa-times search-icon clear-icon" 
+           *ngIf="isSearching" 
+           (click)="clearSearch()"
+           title="Limpiar búsqueda"></i>
+      </div>
+      <button class="add-btn" (click)="agregarUsuario()" *ngIf="isAdmin()">
+        <i class="fas fa-plus"></i>
+        Agregar Usuario
+      </button>
+    </div>
+  </div>
+
+  <!-- Mensaje de resultados de búsqueda -->
+  <div class="search-results" *ngIf="isSearching">
+    <p>Resultados de búsqueda para: "{{searchQuery}}"</p>
+    <p *ngIf="usuariosFiltrados.length === 0">No se encontraron usuarios</p>
+    <p *ngIf="usuariosFiltrados.length > 0">Se encontraron {{usuariosFiltrados.length}} usuarios</p>
+  </div>
+
+  <!-- Tabla de Usuarios -->
+  <div class="table-container">
+    <table class="users-table">
+      <thead>
+        <tr>
+          <th>Usuario</th>
+          <th>Email</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosFiltrados">
+          <td>{{usuario.username}}</td>
+          <td>{{usuario.email}}</td>
+          <td>
+            <span class="role-badge" [ngClass]="usuario.role">
+              {{usuario.role | titlecase}}
+            </span>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button class="edit-btn" (click)="editarUsuario(usuario)" title="Editar">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button class="delete-btn" (click)="eliminarUsuario(usuario.id)" title="Eliminar">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Formulario Modal -->
+  <div class="form-overlay" *ngIf="mostrarFormulario">
+    <div class="form-container">
+      <div class="form-header">
+        <h3>{{editando ? 'Editar' : 'Agregar'}} Usuario</h3>
+      </div>
+      <form (ngSubmit)="guardarUsuario()">
+        <div class="form-group">
+          <label for="username">Nombre de Usuario</label>
+          <input 
+            type="text" 
+            id="username" 
+            name="username" 
+            [(ngModel)]="usuarioForm.username" 
+            class="form-control"
+            required
+          >
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            [(ngModel)]="usuarioForm.email" 
+            class="form-control"
+            required
+          >
+        </div>
+        <div class="form-group">
+          <label for="role">Rol</label>
+          <select 
+            id="role" 
+            name="role" 
+            [(ngModel)]="usuarioForm.role" 
+            class="form-control"
+            required
+          >
+            <option value="admin">Administrador</option>
+            <option value="manager">Gerente</option>
+            <option value="user">Usuario</option>
+          </select>
+        </div>
+        <div class="form-buttons">
+          <button type="submit" class="submit-btn">
+            <i class="fas fa-save"></i> Guardar
+          </button>
+          <button type="button" class="cancel-btn" (click)="cerrarFormulario()">
+            <i class="fas fa-times"></i> Cancelar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

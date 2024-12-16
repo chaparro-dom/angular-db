@@ -1,0 +1,25 @@
+<div class="estadisticas-container">
+  <div class="stats-summary">
+    <div class="stat-card">
+      <h3>Total Órdenes</h3>
+      <p>{{ totalCompras }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Total Ventas</h3>
+      <p>${{ totalVentas | number:'1.2-2' }}</p>
+    </div>
+    <div class="stat-card">
+      <h3>Promedio por Día</h3>
+      <p>{{ promedioCompras | number:'1.2-2' }}</p>
+    </div>
+  </div>
+
+  <div class="charts-grid">
+    <div class="chart-container">
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <canvas id="lineChart"></canvas>
+    </div>
+  </div>
+</div>

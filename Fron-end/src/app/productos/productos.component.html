@@ -1,0 +1,118 @@
+<!-- Content -->
+<div class="content">
+    <div class="header-section">
+        <h2>Lista de Productos</h2>
+        <div class="header-actions">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    [(ngModel)]="searchQuery" 
+                    (input)="searchProducts()"
+                    placeholder="Buscar productos por nombre..."
+                    class="search-input"
+                    [class.searching]="isSearching"
+                >
+                <i class="fas fa-search search-icon" *ngIf="!isSearching"></i>
+                <i class="fas fa-times search-icon clear-icon" 
+                   *ngIf="isSearching" 
+                   (click)="clearSearch()"
+                   title="Limpiar búsqueda"></i>
+            </div>
+            <button class="add-btn" (click)="agregarProducto()" *ngIf="isAdmin()">
+                <i class="fas fa-plus"></i>
+                Agregar Producto
+            </button>
+        </div>
+    </div>
+
+    <!-- Mensaje de resultados de búsqueda -->
+    <div class="search-results" *ngIf="isSearching">
+        <p>Resultados de búsqueda para: "{{searchQuery}}"</p>
+        <p *ngIf="productosFiltrados.length === 0">No se encontraron productos</p>
+        <p *ngIf="productosFiltrados.length > 0">Se encontraron {{productosFiltrados.length}} productos</p>
+    </div>
+
+    <!-- Formulario de Producto -->
+    <div class="form-overlay" *ngIf="mostrarFormulario">
+        <div class="form-container">
+            <h3>{{modoEdicion ? 'Editar' : 'Agregar'}} Producto</h3>
+            <form (ngSubmit)="guardarProducto()">
+                <div class="form-group">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" [(ngModel)]="productoForm.name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="descripcion">Descripción</label>
+                    <textarea id="descripcion" [(ngModel)]="productoForm.description" name="description" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="precio">Precio</label>
+                    <input type="text" id="precio" [(ngModel)]="productoForm.price" name="price" 
+                           pattern="^\d*\.?\d{0,2}$" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input type="number" id="stock" [(ngModel)]="productoForm.stock" name="stock" required min="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="categoria">Categoría</label>
+                    <input type="text" id="categoria" [(ngModel)]="productoForm.category" name="category" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="imagen">URL de la Imagen</label>
+                    <input type="text" id="imagen" [(ngModel)]="productoForm.imageUrl" name="imageUrl" required>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" (click)="cerrarFormulario()">Cancelar</button>
+                    <button type="submit" class="save-btn">Guardar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Tabla de Productos -->
+    <div class="table-container">
+        <table class="products-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Categoría</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let producto of productosFiltrados">
+                    <td>{{producto.id}}</td>
+                    <td><img [src]="producto.imageUrl" alt="Imagen del producto" class="product-image"></td>
+                    <td>{{producto.name}}</td>
+                    <td>{{producto.description}}</td>
+                    <td>${{producto.price}}</td>
+                    <td>{{producto.stock}}</td>
+                    <td>{{producto.category}}</td>
+                    <td class="actions">
+                        <button class="buy-btn" (click)="comprarProducto(producto)" title="Comprar producto">
+                            <i class="fas fa-shopping-cart"></i>
+                        </button>
+                        <button class="edit-btn" (click)="editarProducto(producto)" *ngIf="isAdmin()" title="Editar producto">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-btn" (click)="eliminarProducto(producto.id)" *ngIf="isAdmin()" title="Eliminar producto">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="comprar-container">
+    <!-- Loading Spinner -->
+    <div class="loading-spinner" *ngIf="isLoading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <span>Cargando producto...</span>
+    </div>
+
+    <!-- Error Message -->
+    <div class="error-message" *ngIf="error">
+        {{ error }}
+        <button class="close-error" (click)="error = ''">×</button>
+    </div>
+
+    <div class="product-details" *ngIf="!isLoading && producto">
+        <div class="product-image">
+            <img [src]="producto.imageUrl" [alt]="producto.name">
+        </div>
+        
+        <div class="product-info">
+            <h2>{{ producto.name }}</h2>
+            <p class="description">{{ producto.description }}</p>
+            
+            <div class="price-stock">
+                <p class="price">${{ producto.price }}</p>
+                <p class="stock">Stock disponible: {{ producto.stock }}</p>
+            </div>
+
+            <div class="quantity-selector">
+                <label for="cantidad">Cantidad:</label>
+                <div class="quantity-controls">
+                    <button (click)="cantidad = cantidad - 1" [disabled]="cantidad <= 1">-</button>
+                    <input type="number" id="cantidad" [(ngModel)]="cantidad" min="1" [max]="producto.stock">
+                    <button (click)="cantidad = cantidad + 1" [disabled]="cantidad >= producto.stock">+</button>
+                </div>
+            </div>
+
+            <div class="total">
+                <p>Total: ${{ producto.price * cantidad | number:'1.2-2' }}</p>
+            </div>
+
+            <div class="actions">
+                <button class="cancel-btn" (click)="cancelarCompra()">Cancelar</button>
+                <button class="buy-btn" (click)="realizarCompra()" [disabled]="cantidad > producto.stock">
+                    Confirmar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
